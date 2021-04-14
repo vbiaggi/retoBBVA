@@ -3,6 +3,8 @@ import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/
 import '../styles/Login.css';
 import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button, colors } from "@material-ui/core";
 
+import FacebookLogin from 'react-facebook-login';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     width: "100%",
@@ -26,6 +28,14 @@ function Login(props) {
   const [hasInstagramSession, setHasInstagramSession] = useState(false);
 
   const nextStepValidation = documentType && document && (hasGoogleSession || hasFacebookSession || hasInstagramSession);
+
+  const responseFacebook = (response) => {
+    console.log(response);
+  }
+
+  const componentClicked = (response) => {
+    console.log('evento click', response);
+  }
 
   const goToProducts = () => history.push("/productos");
 
@@ -78,6 +88,12 @@ function Login(props) {
                   </Button>
                 </Grid>
                 <Grid item>
+                  <FacebookLogin
+                    appId="292931552277763"
+                    autoLoad={true}
+                    fields="name,email,picture"
+                    onClick={componentClicked}
+                    callback={responseFacebook} />
                   <Button className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`} color="primary" variant={hasFacebookSession ? "contained" : "outlined"} onClick={() => setHasFacebookSession(true)}>
                     Facebook
                     </Button>
