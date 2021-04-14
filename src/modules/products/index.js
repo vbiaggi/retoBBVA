@@ -1,3 +1,3 @@
 //Routes
-export { default as HomeRouter } from './routes/HomeRouter';
-export { default as HomeRoutes } from './routes/HomeRoutes';
+export { default as ProductsRouter } from './routes/ProductsRouter';
+export { default as ProductsRoutes } from './routes/ProductsRoutes';
