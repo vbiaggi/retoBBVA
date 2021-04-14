@@ -2,9 +2,22 @@
   background: #E94235 !important;
 }
 
-.facebook-button {
-  background: #4867aa !important;
+.facebook-button  .kep-login-facebook {
+    padding: 5px 15px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px !important;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    background: #4867aa !important;
+    color: #fff !important;
 }
+
 
 .instagram-button {
   background: #f09433 !important;
@@ -40,10 +53,27 @@
   color: #E94235 !important;
 }
 
-.facebook-button-outlined {
+.facebook-button-outlined .kep-login-facebook {
+    padding: 5px 15px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px !important;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    border: 1px solid #4867aa !important;
+    background: transparent !important;
+    color: #4867aa !important;
+}
+
+/* .facebook-button-outlined {
   border: 1px solid #4867aa !important;
   color: #4867aa !important;
-}
+} */
 
 .instagram-button-outlined {
   border: 1px solid #bc1888 !important;
