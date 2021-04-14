@@ -32,7 +32,7 @@ function Login(props) {
 
   const responseFacebook = (response) => {
     console.log('responseFacebook', response);
-    getUser(response.accessToken)
+    if(response.accessToken) getUser(response.accessToken)
   }
 
   const componentClicked = (response) => {
