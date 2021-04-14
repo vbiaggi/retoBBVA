@@ -4,6 +4,7 @@ import '../styles/Login.css';
 import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button, colors } from "@material-ui/core";
 
 import FacebookLogin from 'react-facebook-login';
+import getUser from '../services/auth.service';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -29,15 +30,24 @@ function Login(props) {
 
   const nextStepValidation = documentType && document && (hasGoogleSession || hasFacebookSession || hasInstagramSession);
 
-  const responseFacebook = (response) => {
-    console.log(response);
+  const responseFacebook = async (response) => {
+    console.log('responseFacebook', response);
+    // const accessToken = "EAAEKa3Ed9QMBAPDqP3OBZBPOxvYZBxMyZANwyjmAaBGxkBGHErIZAf1nDKRDZBYOqfZBeP80pwChWYmzFZABawBPdiV9v8V5KCdLka3G0NrNHdVvwZASyaCHQtgm8ecUXqb7ayTZChs3cjfZCaC7SMRto7EoMrKn4szzd6NQojLki0fUVbt8DHW2PP3snPkP870p3JZAaRO2ZCAyiew8catZAELnAa9BOStwxl3VWI442B0I6iAZDZD";
+    const accessToken = response.accessToken;
+    if (accessToken) {
+      sessionStorage.setItem("accessToken", accessToken);
+      const user = await getUser(accessToken);
+      console.log("user:  ", user)
+      setHasFacebookSession(true);
+    }
+
   }
 
   const componentClicked = (response) => {
     console.log('evento click', response);
   }
 
-  const goToProducts = () => history.push("/productos");
+  const goToProducts = () => history.push("/lista-de-recomendaciones");
 
   return (
     <div className="Login">
@@ -87,16 +97,14 @@ function Login(props) {
                     Google
                   </Button>
                 </Grid>
-                <Grid item>
+                <Grid item className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`}>
                   <FacebookLogin
                     appId="292931552277763"
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
                     onClick={componentClicked}
                     callback={responseFacebook} />
-                  <Button className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`} color="primary" variant={hasFacebookSession ? "contained" : "outlined"} onClick={() => setHasFacebookSession(true)}>
-                    Facebook
-                    </Button>
+
                 </Grid>
                 <Grid item>
                   <Button className={`instagram-button${!hasInstagramSession ? '-outlined' : ''}`} color="primary" variant={hasInstagramSession ? "contained" : "outlined"} onClick={() => setHasInstagramSession(true)}>
