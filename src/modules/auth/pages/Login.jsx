@@ -1,11 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-// import '../styles/Login.css';
-import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button } from "@material-ui/core";
+import React, { useState } from 'react';
+import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import '../styles/Login.css';
+import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button, colors } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
     width: "100%",
   },
   selectEmpty: {
@@ -14,21 +13,25 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
 }));
 
-function Login() {
+function Login(props) {
+  const { history } = props;
   const classes = useStyles();
+  const [documentType, setDocumentType] = useState(0);
+  const [document, setDocument] = useState("");
+
+  const [hasGoogleSession, setHasGoogleSession] = useState(false);
+  const [hasFacebookSession, setHasFacebookSession] = useState(false);
+  const [hasInstagramSession, setHasInstagramSession] = useState(false);
+
+  const nextStepValidation = documentType && document && (hasGoogleSession || hasFacebookSession || hasInstagramSession);
+
+  const goToProducts = () => history.push("/productos");
 
   return (
     <div className="Login">
-      <Grid container alignContent="center" alignItems="center">
-        <Grid item lg={2}>
-        </Grid>
+      <Grid container justify="center" alignItems="center">
         <Grid item xs={12} sm={12} md={12} lg={8}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -44,8 +47,8 @@ function Login() {
                   autoWidth
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"
-                  value=""
-                  onChange={() => { }}
+                  value={documentType}
+                  onChange={(e) => setDocumentType(e.target.value)}
                 >
                   <MenuItem value={1}>DNI</MenuItem>
                   <MenuItem value={2}>RUC</MenuItem>
@@ -59,7 +62,7 @@ function Login() {
             </Grid>
             <Grid item xs={3} lg={7}>
               <FormControl variant="filled" className={classes.formControl}>
-                <TextField id="filled-basic" label="Documento" variant="filled" />
+                <TextField id="filled-basic" label="Documento" value={document} variant="filled" onChange={(e) => setDocument(e.target.value)} />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
@@ -70,19 +73,29 @@ function Login() {
             <Grid item xs={12}>
               <Grid container spacing={3} alignContent="center" alignItems="center">
                 <Grid item>
-                  <Button variant="outlined" color="primary">
+                  <Button className={`google-button${!hasGoogleSession ? '-outlined' : ''}`} color="primary" variant={hasGoogleSession ? "contained" : "outlined"} onClick={() => setHasGoogleSession(true)}>
                     Google
-                </Button>
+                  </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="secondary">
+                  <Button className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`} color="primary" variant={hasFacebookSession ? "contained" : "outlined"} onClick={() => setHasFacebookSession(true)}>
                     Facebook
-                </Button>
+                    </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" color="secondary">
+                  <Button className={`instagram-button${!hasInstagramSession ? '-outlined' : ''}`} color="primary" variant={hasInstagramSession ? "contained" : "outlined"} onClick={() => setHasInstagramSession(true)}>
                     Instagram
-                </Button>
+                    </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container spacing={3} justify="flex-end" alignItems="center">
+                <Grid item>
+                  <br /><br /><br />
+                  <Button onClick={goToProducts} variant="contained" color="primary" disabled={!nextStepValidation}>
+                    Descubre tus productos ahora
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>

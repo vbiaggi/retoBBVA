@@ -1,9 +1,11 @@
-// import logo from './logo.svg';
+import React from 'react';
 import '../styles/home.css';
 
 import { Button } from "@material-ui/core";
 
-function Home() {
+function Home(props) {
+  const { history } = props;
+  const goToLogin = () => history.push("/iniciar-sesion");
   return (
     <div className="Home">
       <header className="Home-header">
@@ -19,9 +21,9 @@ function Home() {
         >
           Learn React
         </a>
-        <Button variant="contained" color="primary">
-  Primary
-</Button>
+        <Button variant="contained" color="primary" onClick={goToLogin}>
+          Login
+        </Button>
       </header>
     </div>
   );
