@@ -4,7 +4,7 @@ import '../styles/Login.css';
 import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button, colors } from "@material-ui/core";
 
 import FacebookLogin from 'react-facebook-login';
-import { getUser } from '../services/auth.service';
+import getUser from '../services/auth.service';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -32,7 +32,11 @@ function Login(props) {
 
   const responseFacebook = (response) => {
     console.log('responseFacebook', response);
-    if(response.accessToken) getUser(response.accessToken)
+    // if (response.accessToken) {
+    //   getUser(response.accessToken);
+    //   setHasInstagramSession(true);
+    // }
+    getUser("EAAEKa3Ed9QMBAHCb7A6bL0BFQl6v2tc7O5XJ0esaHT7SG4kuFhw6DMrrTIWpm9vDV1oJ1S7TWkWS8vE6DYDqtuakDZCdhLou5dIQdkSlhhJC9qPC4NwHqZCYsZBIVpczuVXTqe6kZA3890yKl84vZCa886KYOHDB0F0eBTmKfkKHmAnk2vWKUsf6ZA5ZADwuQIYOwh3vVJ6XDO2VsLdssWuiGimsA70SplYuAolXZBL9QwZDZD");
   }
 
   const componentClicked = (response) => {
@@ -89,16 +93,14 @@ function Login(props) {
                     Google
                   </Button>
                 </Grid>
-                <Grid item>
+                <Grid item className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`}>
                   <FacebookLogin
                     appId="292931552277763"
                     autoLoad={false}
                     fields="name,email,picture"
                     onClick={componentClicked}
                     callback={responseFacebook} />
-                  <Button className={`facebook-button${!hasFacebookSession ? '-outlined' : ''}`} color="primary" variant={hasFacebookSession ? "contained" : "outlined"} onClick={() => setHasFacebookSession(true)}>
-                    Facebook
-                    </Button>
+
                 </Grid>
                 <Grid item>
                   <Button className={`instagram-button${!hasInstagramSession ? '-outlined' : ''}`} color="primary" variant={hasInstagramSession ? "contained" : "outlined"} onClick={() => setHasInstagramSession(true)}>
