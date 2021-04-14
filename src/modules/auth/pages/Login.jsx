@@ -4,6 +4,7 @@ import '../styles/Login.css';
 import { Typography, FormControl, InputLabel, Select, MenuItem, TextField, Paper, Grid, Button, colors } from "@material-ui/core";
 
 import FacebookLogin from 'react-facebook-login';
+import { getUser } from '../services/auth.service';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -30,7 +31,8 @@ function Login(props) {
   const nextStepValidation = documentType && document && (hasGoogleSession || hasFacebookSession || hasInstagramSession);
 
   const responseFacebook = (response) => {
-    console.log(response);
+    console.log('responseFacebook', response);
+    getUser(response.accessToken)
   }
 
   const componentClicked = (response) => {
@@ -90,7 +92,7 @@ function Login(props) {
                 <Grid item>
                   <FacebookLogin
                     appId="292931552277763"
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
                     onClick={componentClicked}
                     callback={responseFacebook} />
