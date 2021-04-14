@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 //Global routes
 import Modules from '../modules';
+import { Navbar } from '../modules/shared/components';
 
 //ScrollRouter
 import ScrollToTopRouter from './ScrollTopRouter';
@@ -17,6 +18,7 @@ const AppRouter = () => {
 
     return (
         <BrowserRouter>
+            <Navbar />
             <ScrollToTopRouter anotherContainer={refContainer} />
             <RouterBBVA />
         </BrowserRouter>
