@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -15,19 +15,7 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import getProducts from '../services/products.service';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -73,17 +61,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
+// "Seguro de Desgravamen", "Credito Hipotecario", "Credito Vehicular", "Credito Motos"
 const tiers = [
   {
-    title: 'Préstamo al Toque',
+    id: 'Seguro de Desgravamen',
+    title: 'Seguro de Desgravamen',
     price: '',
     description: ['Pídelo desde casa y el dinero estará en tu cuenta al instante'],
     buttonText: 'Pídelo aquí',
     buttonVariant: 'Más Información',
   },
   {
-    title: 'Seguro Vida Renta ',
+    id: 'Credito Hipotecario',
+    title: 'Crédito Hipotecario',
     subheader: '',
     price: '',
     description: [
@@ -93,7 +83,19 @@ const tiers = [
     buttonVariant: 'Más Información',
   },
   {
-    title: 'Cuentas de Ahorro ',
+    id: 'Credito Motos',
+    title: 'Crédito Motos',
+    subheader: '',
+    price: '',
+    description: [
+      'Retira, transfiere, envía y recibe dinero gratis'
+    ],
+    buttonText: 'Pídelo aquí',
+    buttonVariant: 'Más Información',
+  },
+  {
+    id: 'Credito Vehicular',
+    title: 'Crédito Vehicular',
     subheader: '',
     price: '',
     description: [
@@ -102,36 +104,33 @@ const tiers = [
     buttonText: 'Pídelo aquí',
     buttonVariant: 'Más Información',
   }
-  
-  
-];
-const footers = [
-  {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations'],
-  },
-  {
-    title: 'Features',
-    description: ['Cool stuff', 'Random feature', 'Team feature', 'Developer stuff', 'Another one'],
-  },
-  {
-    title: 'Resources',
-    description: ['Resource', 'Resource name', 'Another resource', 'Final resource'],
-  },
-  {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use'],
-  },
+
+
 ];
 
 export default function Pricing(props) {
   const classes = useStyles();
-  const {history}=props;
+  const { history } = props;
+  const [products, setProducts] = useState(tiers)
+
+  useEffect(() => {
+    getProductsFunc()
+  }, [])
+
+  const getProductsFunc = async () => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (accessToken) {
+      const productsActive = await getProducts(accessToken);
+      setProducts(tiers.filter(x => {
+        return productsActive.filter(y => x.id === y ? x.id : false)
+      }));
+    }
+  }
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        
+
       </AppBar>
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
@@ -145,7 +144,7 @@ export default function Pricing(props) {
       {/* End hero unit */}
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
+          {products.map((tier) => (
             // Enterprise card is full width at sm breakpoint
             <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
               <Card>
@@ -159,9 +158,9 @@ export default function Pricing(props) {
                 />
                 <CardContent>
                   <div className={classes.cardPricing}>
-                      <img src="https://www.bbva.pe//content/dam/public-web/global/images/micro-illustrations/checkbook.svg"></img>
-                    
-                    
+                    <img src="https://www.bbva.pe//content/dam/public-web/global/images/micro-illustrations/checkbook.svg"></img>
+
+
                   </div>
                   <ul>
                     {tier.description.map((line) => (
@@ -172,7 +171,7 @@ export default function Pricing(props) {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary" onClick={()=>history.push("/registro-informacion")} >
+                  <Button fullWidth variant={tier.buttonVariant} color="primary" onClick={() => history.push("/registro-informacion")} >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -181,7 +180,7 @@ export default function Pricing(props) {
           ))}
         </Grid>
       </Container>
-      
+
     </React.Fragment>
   );
 }

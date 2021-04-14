@@ -1,5 +1,5 @@
-async function getUser(faceToken) {
-    const response = await fetch('https://social-bbva.herokuapp.com/profile', {
+async function getProducts(faceToken) {
+    const response = await fetch('https://social-bbva.herokuapp.com/products', {
         headers: {
             'FaceToken': faceToken,
         },
@@ -10,8 +10,7 @@ async function getUser(faceToken) {
         .catch(function (error) {
             console.log(error);
         });
-    sessionStorage.setItem("userInfo", response)
     return response;
 };
 
-export default getUser;
+export default getProducts;

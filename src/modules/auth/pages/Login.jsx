@@ -32,12 +32,15 @@ function Login(props) {
 
   const responseFacebook = async (response) => {
     console.log('responseFacebook', response);
-    // if (response.accessToken) {
-    //   getUser(response.accessToken);
-    //   setHasInstagramSession(true);
-    // }
-    const user = await getUser("EAAEKa3Ed9QMBAHCb7A6bL0BFQl6v2tc7O5XJ0esaHT7SG4kuFhw6DMrrTIWpm9vDV1oJ1S7TWkWS8vE6DYDqtuakDZCdhLou5dIQdkSlhhJC9qPC4NwHqZCYsZBIVpczuVXTqe6kZA3890yKl84vZCa886KYOHDB0F0eBTmKfkKHmAnk2vWKUsf6ZA5ZADwuQIYOwh3vVJ6XDO2VsLdssWuiGimsA70SplYuAolXZBL9QwZDZD");
-    console.log("user:  ", user)
+    // const accessToken = "EAAEKa3Ed9QMBAPDqP3OBZBPOxvYZBxMyZANwyjmAaBGxkBGHErIZAf1nDKRDZBYOqfZBeP80pwChWYmzFZABawBPdiV9v8V5KCdLka3G0NrNHdVvwZASyaCHQtgm8ecUXqb7ayTZChs3cjfZCaC7SMRto7EoMrKn4szzd6NQojLki0fUVbt8DHW2PP3snPkP870p3JZAaRO2ZCAyiew8catZAELnAa9BOStwxl3VWI442B0I6iAZDZD";
+    const accessToken = response.accessToken;
+    if (accessToken) {
+      sessionStorage.setItem("accessToken", accessToken);
+      const user = await getUser(accessToken);
+      console.log("user:  ", user)
+      setHasFacebookSession(true);
+    }
+
   }
 
   const componentClicked = (response) => {
