@@ -69,8 +69,10 @@ function FullWidthGrid() {
   // const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div className={classes.root}>
-      <Grid className="carta" container xs={6}>
+    <div className={classes.root} >
+      <Grid container justify="center" alignItems="center">
+      <Grid item xs={12} sm={12} md={12} lg={8}>
+      <Grid className="carta" container xs={12} lg={12}>
         <Grid container item xs={4}>
           <Grid container item xs={12} justify="center" alignItems="center">
             <CreditCardIcon></CreditCardIcon>
@@ -93,7 +95,7 @@ function FullWidthGrid() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid className="carta" container xs={6}>
+      <Grid className="carta" container xs={12} lg={12}>
         <Grid container item xs={4}>
           <Grid container item xs={12} justify="center" alignItems="center">
             <CreditCardIcon></CreditCardIcon>
@@ -115,6 +117,8 @@ function FullWidthGrid() {
             <Button>Conoce más</Button>
           </Grid>
         </Grid>
+      </Grid>
+      </Grid>
       </Grid>
     </div>
   );
