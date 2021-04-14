@@ -1,6 +1,8 @@
 const ProductsRoutes = [
     '/productos',
     '/lista-de-recomendaciones',
-    '/registro-informacion'
+    '/registro-informacion',
+    '/PersonalInfo',
+    '/review'
 ];
 export default ProductsRoutes;

@@ -8,6 +8,8 @@ import ProductsRoutes from './ProductsRoutes';
 import Products from '../pages/Products';
 import recommendlist from '../pages/recommendlist';
 import dataform from '../pages/dataform';
+import PersonalInfo from '../pages/PersonalInfo';
+import reviewPage from '../pages/review';
 
 //Components
 
@@ -29,6 +31,18 @@ const ProductsRouter = () => {
                     exact
                     path={ProductsRoutes[2]}
                     component={dataform}
+                />
+
+                    <Route
+                    exact
+                    path={ProductsRoutes[3]}
+                    component={PersonalInfo}
+                />
+
+           <Route
+                    exact
+                    path={ProductsRoutes[4]}
+                    component={reviewPage}
                 />
             </Switch>
         </>

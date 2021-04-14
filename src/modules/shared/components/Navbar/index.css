@@ -1,3 +1,11 @@
 .MuiAppBar-colorPrimary {
     background-color: #072146!important;
 }
+
+.MuiStepIcon-root.MuiStepIcon-active {
+    color: #072146!important;
+}
+.MuiButton-containedPrimary
+{
+    background-color: #072146!important;
+}
